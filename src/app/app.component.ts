@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
 
   public readonly menus: Array<PoMenuItem> = [
     { label: 'Início', action: this.onHomeClick.bind(this), icon: 'po-icon po-icon-home' },
-    { label: 'Currículo', action: this.onCurriculumClick.bind(this), icon: 'po-icon po-icon-document-filled' }
+    { label: 'Currículos', action: this.onCurriculumClick.bind(this), icon: 'po-icon po-icon-document-double' },
+    { label: 'Alunos', action: this.onStudentsClick.bind(this), icon: 'po-icon po-icon-users' },
+    { label: 'Disciplinas', action: this.onSubjectsClick.bind(this), icon: 'po-icon po-icon-grid' }
   ];
 
   ngOnInit(): void {
@@ -26,6 +28,14 @@ export class AppComponent implements OnInit {
 
   private onHomeClick() : void {
     this._router.navigate(['home']);
+  }
+
+  private onSubjectsClick() : void {
+    this._router.navigate(['subjects']);
+  }
+
+  private onStudentsClick() : void {
+    this._router.navigate(['students']);
   }
 
 }
