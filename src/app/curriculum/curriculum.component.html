@@ -1,4 +1,9 @@
 <po-page-default 
-    p-title="Currículos">
-    Aqui vão ficar os currículos...
+    p-title="Currículos"
+    [p-actions]="pageActions">
+    <po-table
+        [p-items]="items"
+        [p-columns]="columns"
+        p-striped>
+    </po-table>
 </po-page-default>

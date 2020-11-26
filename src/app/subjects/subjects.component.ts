@@ -97,8 +97,7 @@ export class SubjectsComponent implements OnInit {
         })
         .catch(() => this._notification.error('Erro ao remover a disciplina.'));
       }
-    });
-    
+    });    
   }
 
   private setData(result: Array<Subjects>) : void {

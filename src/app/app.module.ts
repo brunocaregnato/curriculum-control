@@ -10,6 +10,9 @@ import { StudentsComponent } from './students/students.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 import { SubjectsService } from './subjects/subjects.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurriculumService } from './curriculum/curriculum.service';
+import { CurriculumAddComponent } from './curriculum/curriculum-add/curriculum-add.component';
+import { CurriculumEditComponent } from './curriculum/curriculum-edit/curriculum-edit.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CurriculumComponent,
     HomeComponent,
     StudentsComponent,
-    SubjectsComponent    
+    SubjectsComponent,
+    CurriculumAddComponent,
+    CurriculumEditComponent    
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     SubjectsService,
+    CurriculumService,
   ],
   bootstrap: [AppComponent]
 })
