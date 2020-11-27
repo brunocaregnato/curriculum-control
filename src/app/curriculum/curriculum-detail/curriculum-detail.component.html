@@ -1,0 +1,31 @@
+<po-page-default
+    p-title="Detalhes do Currículo"
+    [p-actions]="pageActions">
+
+    <div class="po-row">
+        <po-info
+            class="po-md-2"
+            [p-value]="curriculum.id"
+            p-label="Código">
+        </po-info>
+        <po-info
+            class="po-md-6"    
+            [p-value]="curriculum.name"
+            p-label="Descrição">
+        </po-info>
+    </div>
+
+    <po-widget
+        class="po-md-8"
+        p-title="Disciplinas">
+        <div class="po-row">
+            <po-table
+                class="po-md-12"
+                [p-items]="curriculum.subjects"
+                [p-columns]="columns"
+                p-striped>
+            </po-table>
+        </div>
+    </po-widget>
+
+</po-page-default>

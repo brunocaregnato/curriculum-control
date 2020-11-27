@@ -8,7 +8,12 @@ export class Students {
 
     constructor() {
         this.id = 0;
-        this.name = '';   
-        this.$actions = [];     
+        this.name = '';
+        this.curriculum = new Curriculum();
+        this.$actions = [];
+    }
+
+    get $curriculum() {
+        return this.curriculum.id.toString().concat(' - ').concat(this.curriculum.name);
     }
 }

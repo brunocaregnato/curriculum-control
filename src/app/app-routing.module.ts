@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CurriculumAddComponent } from './curriculum/curriculum-add/curriculum-add.component';
+import { CurriculumDetailComponent } from './curriculum/curriculum-detail/curriculum-detail.component';
 import { CurriculumEditComponent } from './curriculum/curriculum-edit/curriculum-edit.component';
 import { CurriculumComponent } from './curriculum/curriculum.component';
 import { HomeComponent } from './home/home.component';
@@ -10,8 +10,8 @@ import { SubjectsComponent } from './subjects/subjects.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'curriculum', component: CurriculumComponent },
-  { path: 'curriculum/add', component: CurriculumAddComponent },
   { path: 'curriculum/edit', component: CurriculumEditComponent },
+  { path: 'curriculum/detail/:id', component: CurriculumDetailComponent },
   { path: 'subjects', component: SubjectsComponent },
   { path: 'students', component: StudentsComponent }
 ];

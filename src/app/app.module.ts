@@ -11,8 +11,9 @@ import { SubjectsComponent } from './subjects/subjects.component';
 import { SubjectsService } from './subjects/subjects.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurriculumService } from './curriculum/curriculum.service';
-import { CurriculumAddComponent } from './curriculum/curriculum-add/curriculum-add.component';
 import { CurriculumEditComponent } from './curriculum/curriculum-edit/curriculum-edit.component';
+import { StudentsService } from './students/students.service';
+import { CurriculumDetailComponent } from './curriculum/curriculum-detail/curriculum-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,8 @@ import { CurriculumEditComponent } from './curriculum/curriculum-edit/curriculum
     HomeComponent,
     StudentsComponent,
     SubjectsComponent,
-    CurriculumAddComponent,
-    CurriculumEditComponent    
+    CurriculumEditComponent,
+    CurriculumDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +36,7 @@ import { CurriculumEditComponent } from './curriculum/curriculum-edit/curriculum
   providers: [
     SubjectsService,
     CurriculumService,
+    StudentsService
   ],
   bootstrap: [AppComponent]
 })

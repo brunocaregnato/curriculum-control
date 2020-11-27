@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { PoDialogService, PoNotificationService, PoPageAction,  PoTableColumn } from '@po-ui/ng-components';
 import { Curriculum } from './curriculum.model';
 import { CurriculumService } from './curriculum.service';
@@ -32,7 +32,7 @@ export class CurriculumComponent implements OnInit {
 
   private setColumns() : void {
     this.columns = [
-      { property: 'id', label: 'Código' },
+      { property: 'id', label: 'Código', type: 'link', action: this.detail.bind(this) },
       { property: 'name', label: 'Currículo' },
       { property: '$actions', label: 'Ações', type: 'icon', icons: [
         { value: 'edit', icon: 'po-icon-edit', color: 'color-01', action: this.edit.bind(this) },
@@ -68,11 +68,11 @@ export class CurriculumComponent implements OnInit {
   }
 
   private add() : void {
-    this._router.navigate(['curriculum/add']);
+    this._router.navigate(['curriculum/edit']);
   }
 
-  private edit() : void {
-    this._router.navigate(['curriculum/edit']);
+  private edit(curriculum: Curriculum) : void {
+    this._router.navigate(['curriculum/edit'], { queryParams: { id: curriculum.id } });
   }
 
   private delete(curriculum: Curriculum) : void {
@@ -89,4 +89,7 @@ export class CurriculumComponent implements OnInit {
     });
   }
 
+  private detail(id: number) : void {
+    this._router.navigate(['curriculum/detail/'.concat(id.toString())])
+  }
 }
