@@ -15,15 +15,15 @@ export class CurriculumEditComponent implements OnInit {
 
   public pageActions : Array<PoPageAction> = [
     { label: 'Adicionar', action: this.save.bind(this), icon: 'po-icon po-icon-plus'},
-    { label: 'Voltar', action: this.back.bind(this) }  
+    { label: 'Voltar', action: this.back.bind(this) }
   ];
 
   public curriculum: Curriculum;
   public columns: Array<PoTableColumn>;
   public subjects: Array<PoComboOption>;
   public subjectsList: Array<Subjects>;
-  public comboValue: number;
-  public isNew: boolean = false;;
+  public comboValue: string;
+  public isNew: boolean = false;
 
   constructor(
     private _router: Router,
@@ -32,81 +32,57 @@ export class CurriculumEditComponent implements OnInit {
     private _curriculumService: CurriculumService,
     private _notification: PoNotificationService) { }
 
-  public ngOnInit(): void {    
+  public ngOnInit(): void {
     this.setColumns();
     this.setDisciplinesOptions();
     this.curriculum = new Curriculum();
     this.isNew = true;
     const id = this._activatedRoute.snapshot.queryParams.id;
     if (id) {
-      //this._curriculumService.getId(id).then((curriculum: Curriculum) => {
-      //  this.curriculum = curriculum;
-      //});
+      this._curriculumService.getId(id).then((curriculum: Curriculum) => {
+        this.curriculum = curriculum;
+        this.setSubjectsList(this.curriculum.subjects);
+      });
       this.isNew = false;
-      let obj: Curriculum = new Curriculum();
-      obj.id = 1;
-      obj.name = 'CURRÍCULO 1';
-      let subjects: Array<Subjects> = new Array<Subjects>();
-      let subject = new Subjects();
-      subject.id = 1;
-      subject.name = 'TESTE 1';
-      subject.$actions = ['delete'];
-      subjects[0] = subject;
-      subject = new Subjects();
-      subject.id = 2;
-      subject.name = 'TESTE 2';
-      subject.$actions = ['delete'];
-      subjects[1] = subject;      
-      subject = new Subjects();
-      subject.id = 3;
-      subject.name = 'TESTE 3';
-      subject.$actions = ['delete'];
-      subjects[2] = subject;
-      obj.subjects = subjects;
-      this.curriculum = obj;
     }
   }
 
   private setColumns() : void {
     this.columns = [
-      { property: 'id', label: 'Código' },
+      { property: 'code', label: 'Código' },
       { property: 'name', label: 'Disciplina' },
       { property: '$actions', label: 'Ações', type: 'icon', icons: [
         { value: 'delete', icon: 'po-icon-delete', color: 'color-07', action: this.delete.bind(this) },
       ]}
-    ];    
+    ];
   }
 
   private setDisciplinesOptions() {
     this.subjects = [];
-    this.subjectsList = [];
-    //this._subjectService.get().then(result => { 
-    //    this.subjects.push({value: result.id, label: result.name})
-    //    this.subjectsList.push(result);
-    //});
-
-    this.subjects.push({value: 1, label: 'TESTE 1'});
-    this.subjects.push({value: 2, label: 'TESTE 2'});
-    this.subjects.push({value: 3, label: 'TESTE 3'});
-    let obj1 = new Subjects();
-    obj1.id = 1;
-    obj1.name = 'TESTE 1';
-    let obj2 = new Subjects();
-    obj2.id = 2;
-    obj2.name = 'TESTE 2';
-    let obj3 = new Subjects();
-    obj3.id = 3;
-    obj3.name = 'TESTE 3';
-    this.setSubjectsList([obj1, obj2, obj3]);
+    this._subjectService.get().then(result => {
+        result.forEach(element => {
+          this.subjects.push({value: element.id, label: element.name});
+        });
+    });
   }
 
   private save() : void {
-    this._curriculumService.post(this.curriculum).then(
-      () => {
-        this._notification.success('Currículo incluído com sucesso.')
-        this.back();
-      }
-    ).catch(() => this._notification.error('Erro ao tentar incluir currículo.'));
+    if(this.isNew){
+      this._curriculumService.post(this.curriculum).then(
+        () => {
+          this._notification.success('Currículo incluído com sucesso.')
+          this.back();
+        }
+      ).catch(() => this._notification.error('Erro ao tentar incluir currículo.'));
+    }else{
+      this._curriculumService.put(this.curriculum).then(
+        () => {
+          this._notification.success('Currículo alterado com sucesso.')
+          this.back();
+        }
+      ).catch(() => this._notification.error('Erro ao tentar alterar currículo.'));
+    }
+
   }
 
   public add() : void {

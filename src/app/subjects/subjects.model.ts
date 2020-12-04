@@ -1,11 +1,12 @@
 export class Subjects {
-    public id : number;
+    public id: string;
+    public code : string;
     public name : string;
     public $actions : any;
 
     constructor() {
-        this.id = 0;
-        this.name = '';        
+        this.code = '';
+        this.name = '';
     }
 
 }

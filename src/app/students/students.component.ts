@@ -17,15 +17,15 @@ export class StudentsComponent implements OnInit {
   @ViewChild(PoModalComponent, { static: true }) modal: PoModalComponent;
 
   public pageActions : Array<PoPageAction> = [
-    { label: 'Adicionar', action: this.addModal.bind(this), icon: 'po-icon po-icon-plus'}  
+    { label: 'Adicionar', action: this.addModal.bind(this), icon: 'po-icon po-icon-plus'}
   ];
 
   public confirm: PoModalAction = {
-    label: 'Confirmar', action: () => this.confirmAction() 
+    label: 'Confirmar', action: () => this.confirmAction()
   }
 
   public cancel: PoModalAction = {
-    label: 'Cancelar', action: () => { this.modal.close() } 
+    label: 'Cancelar', action: () => { this.modal.close() }
   }
 
   public columns: Array<PoTableColumn>;
@@ -34,7 +34,7 @@ export class StudentsComponent implements OnInit {
   public modalTitle: string = '';
   public isNew: boolean = false;
   public student: Students = new Students();
-  public comboValue: number;
+  public comboValue: string;
 
   public curriculums: Array<PoComboOption>;
   public curriculumsList: Array<Curriculum>;
@@ -68,7 +68,7 @@ export class StudentsComponent implements OnInit {
     //this._studentService.get().then(result => {
     //    this.setData(result);
     //});
-    
+
     let obj1 = new Students();
     obj1.id = 1;
     obj1.name = 'ALUNO 1';
@@ -97,7 +97,7 @@ export class StudentsComponent implements OnInit {
 
   private setCurriculumsOption() {
     this.curriculums = [];
-    //this._curriculumService.get().then(result => { 
+    //this._curriculumService.get().then(result => {
     //    this.curriculums.push({value: result.id, label: result.name})
     //    this.curriculumsList.push(result);
     //});
@@ -152,7 +152,7 @@ export class StudentsComponent implements OnInit {
         })
         .catch(() => this._notification.error('Erro ao remover o aluno.'));
       }
-    });    
+    });
   }
 
   private setData(result: Array<Students>) : void {
@@ -164,12 +164,12 @@ export class StudentsComponent implements OnInit {
   }
 
   private confirmAction() : void {
-    if (this.isNew) 
+    if (this.isNew)
       this.add(this.student);
     else
       this.edit(this.student);
 
-    this.modal.close();    
+    this.modal.close();
   }
 
   private addModal() : void {

@@ -13,15 +13,15 @@ export class SubjectsComponent implements OnInit {
   @ViewChild(PoModalComponent, { static: true }) modal: PoModalComponent;
 
   public pageActions : Array<PoPageAction> = [
-    { label: 'Adicionar', action: this.addModal.bind(this), icon: 'po-icon po-icon-plus'}  
+    { label: 'Adicionar', action: this.addModal.bind(this), icon: 'po-icon po-icon-plus'}
   ];
 
   public confirm: PoModalAction = {
-    label: 'Confirmar', action: () => this.confirmAction() 
+    label: 'Confirmar', action: () => this.confirmAction()
   }
 
   public cancel: PoModalAction = {
-    label: 'Cancelar', action: () => { this.modal.close() } 
+    label: 'Cancelar', action: () => { this.modal.close() }
   }
 
   public columns: Array<PoTableColumn>;
@@ -43,7 +43,7 @@ export class SubjectsComponent implements OnInit {
 
   private initColumns() : void {
     this.columns = [
-      { property: 'id', label: 'Código' },
+      { property: 'code', label: 'Código' },
       { property: 'name', label: 'Disciplina' },
       { property: '$actions', label: 'Ações', type: 'icon', icons: [
         { value: 'edit', icon: 'po-icon-edit', color: 'color-01', action: this.editModal.bind(this) },
@@ -53,21 +53,9 @@ export class SubjectsComponent implements OnInit {
   }
 
   private get() : void {
-    //this._subjectService.get().then(result => {
-    //    this.setData(result);
-    //});
-    
-    let obj1 = new Subjects();
-    obj1.id = 1;
-    obj1.name = 'TESTE 1';
-    let obj2 = new Subjects();
-    obj2.id = 2;
-    obj2.name = 'TESTE 2';
-    let obj3 = new Subjects();
-    obj3.id = 3;
-    obj3.name = 'TESTE 3';
-    let array = [obj1, obj2, obj3];
-    this.setData(array);
+    this._subjectService.get().then(result => {
+       this.setData(result);
+    });
   }
 
   private add(subject: Subjects) : void {
@@ -97,7 +85,7 @@ export class SubjectsComponent implements OnInit {
         })
         .catch(() => this._notification.error('Erro ao remover a disciplina.'));
       }
-    });    
+    });
   }
 
   private setData(result: Array<Subjects>) : void {
@@ -109,12 +97,12 @@ export class SubjectsComponent implements OnInit {
   }
 
   private confirmAction() : void {
-    if (this.isNew) 
+    if (this.isNew)
       this.add(this.subject);
     else
       this.edit(this.subject);
 
-    this.modal.close();    
+    this.modal.close();
   }
 
   private addModal() : void {

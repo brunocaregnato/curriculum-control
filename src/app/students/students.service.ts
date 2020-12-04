@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Students } from './Students.model';
+import { Students } from './students.model';
 
 @Injectable()
 export class StudentsService {
@@ -24,5 +24,5 @@ export class StudentsService {
     public put(subject: Students) : Promise<any> {
         return this._http.put(this._url, subject).toPromise();
     }
- 
+
 }

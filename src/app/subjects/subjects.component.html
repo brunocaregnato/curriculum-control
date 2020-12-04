@@ -1,4 +1,4 @@
-<po-page-default 
+<po-page-default
     p-title="Disciplinas"
     [p-actions]="pageActions">
     <po-table
@@ -16,13 +16,13 @@
         [p-title]="modalTitle">
         <form>
             <div class="po-row">
-                <po-number                
+                <po-input
                     class="po-md-2"
                     p-label="Código"
-                    name="subject.id"
-                    [(ngModel)]="subject.id"
+                    name="subject.code"
+                    [(ngModel)]="subject.code"
                     [p-disabled]="!isNew">
-                </po-number>
+                </po-input>
                 <po-input
                     class="po-md-10"
                     p-label="Descrição da Disciplina"

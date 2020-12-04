@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "curriculum-controls"
+  "defaultProject": "curriculum-controls",
+  "cli": {
+    "analytics": "d956f5c6-13ad-4175-96c7-6c8a591d3499"
+  }
 }
