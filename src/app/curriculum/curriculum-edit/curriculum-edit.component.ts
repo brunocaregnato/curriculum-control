@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoComboOption, PoNotificationService, PoPageAction, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
+import { PoSelectOption, PoNotificationService, PoPageAction, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
 import { Subjects } from 'src/app/subjects/subjects.model';
 import { SubjectsService } from 'src/app/subjects/subjects.service';
 import { Curriculum } from '../curriculum.model';
@@ -14,16 +14,17 @@ import { CurriculumService } from '../curriculum.service';
 export class CurriculumEditComponent implements OnInit {
 
   public pageActions : Array<PoPageAction> = [
-    { label: 'Adicionar', action: this.save.bind(this), icon: 'po-icon po-icon-plus'},
+    { label: 'Salvar', action: this.save.bind(this), icon: 'po-icon po-icon-ok'},
     { label: 'Voltar', action: this.back.bind(this) }
   ];
 
   public curriculum: Curriculum;
-  public columns: Array<PoTableColumn>;
-  public subjects: Array<PoComboOption>;
-  public subjectsList: Array<Subjects>;
+  public columns: Array<PoTableColumn> = new Array<PoTableColumn>();
+  public subjects: Array<PoSelectOption> = new Array<PoSelectOption>();
+  public subjectsList: Array<Subjects> = new Array<Subjects>();
   public comboValue: string;
   public isNew: boolean = false;
+  public pageTitle: string;
 
   constructor(
     private _router: Router,
@@ -37,6 +38,7 @@ export class CurriculumEditComponent implements OnInit {
     this.setDisciplinesOptions();
     this.curriculum = new Curriculum();
     this.isNew = true;
+    this.pageTitle = 'Adicionar Currículo';
     const id = this._activatedRoute.snapshot.queryParams.id;
     if (id) {
       this._curriculumService.getId(id).then((curriculum: Curriculum) => {
@@ -44,6 +46,7 @@ export class CurriculumEditComponent implements OnInit {
         this.setSubjectsList(this.curriculum.subjects);
       });
       this.isNew = false;
+      this.pageTitle = 'Editar Currículo';
     }
   }
 

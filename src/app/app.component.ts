@@ -12,10 +12,10 @@ export class AppComponent implements OnInit {
   constructor (private _router: Router) { }
 
   public readonly menus: Array<PoMenuItem> = [
-    { label: 'Início', action: this.onHomeClick.bind(this), icon: 'po-icon po-icon-home' },
-    { label: 'Currículos', action: this.onCurriculumClick.bind(this), icon: 'po-icon po-icon-document-double' },
-    { label: 'Alunos', action: this.onStudentsClick.bind(this), icon: 'po-icon po-icon-users' },
-    { label: 'Disciplinas', action: this.onSubjectsClick.bind(this), icon: 'po-icon po-icon-grid' }
+    { label: 'Início', action: this.onHomeClick.bind(this), icon: 'po-icon po-icon-home', shortLabel: 'Início' },
+    { label: 'Alunos', action: this.onStudentsClick.bind(this), icon: 'po-icon po-icon-users', shortLabel: 'Alunos' },
+    { label: 'Currículos', action: this.onCurriculumClick.bind(this), icon: 'po-icon po-icon-document-double', shortLabel: 'Currículos' },
+    { label: 'Disciplinas', action: this.onSubjectsClick.bind(this), icon: 'po-icon po-icon-grid', shortLabel: 'Disciplinas' }
   ];
 
   ngOnInit(): void {

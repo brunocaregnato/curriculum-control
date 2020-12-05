@@ -1,17 +1,17 @@
 <po-page-default
-    p-title="Adicionar Currículo"
+    [p-title]="pageTitle"
     [p-actions]="pageActions">
 
     <div class="po-row">
         <po-number
-            class="po-md-2"
+            class="po-md-4"
             name="curriculum.code"
             [(ngModel)]="curriculum.code"
             [p-disabled]="!isNew"
             p-label="Código">
         </po-number>
         <po-input
-            class="po-md-6"
+            class="po-md-8"
             name="curriculum.name"
             [(ngModel)]="curriculum.name"
             p-label="Descrição">
@@ -19,16 +19,16 @@
     </div>
 
     <po-widget
-        class="po-md-8"
+        class="po-md-12"
         p-title="Disciplinas">
         <div class="po-row">
-            <po-combo
+            <po-select
                 class="po-md-8"
                 name="comboValue"
                 [(ngModel)]="comboValue"
                 p-label="Selecionar Disciplina"
                 [p-options]="subjects">
-            </po-combo>
+            </po-select>
             <po-button
                 class="po-md-4 po-mt-4"
                 p-label="Adicionar Disciplina"

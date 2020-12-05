@@ -1,5 +1,8 @@
 <div class="po-wrapper">
   <po-toolbar p-title="Controle de Currículo"></po-toolbar>
-  <po-menu [p-menus]="menus"></po-menu>
+  <po-menu 
+    [p-menus]="menus"
+    p-collapsed>
+  </po-menu>
   <router-outlet></router-outlet>
 </div>

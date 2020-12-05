@@ -9,8 +9,8 @@ export class CurriculumService {
 
     constructor(private _http: HttpClient) { }
 
-    public post(subject: Curriculum): Promise<any> {
-      return this._http.post(environment.api + 'api/Curriculums', subject).toPromise();
+    public post(curriculum: Curriculum): Promise<any> {
+      return this._http.post(environment.api + 'api/Curriculums', curriculum).toPromise();
     }
 
     public get(): Promise<any> {
@@ -21,8 +21,8 @@ export class CurriculumService {
       return this._http.delete(environment.api + 'api/Curriculums/' + id).toPromise();
     }
 
-    public put(subject: Curriculum): Promise<any> {
-      return this._http.put(environment.api + 'api/Curriculums/' + subject.id, subject).toPromise();
+    public put(curriculum: Curriculum): Promise<any> {
+      return this._http.put(environment.api + 'api/Curriculums/' + curriculum.id, curriculum).toPromise();
     }
 
     public getId(id: string) : Promise<any> {
