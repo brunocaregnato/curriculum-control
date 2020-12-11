@@ -1,4 +1,4 @@
-<po-page-default 
+<po-page-default
     p-title="Alunos"
     [p-actions]="pageActions">
     <po-table
@@ -16,13 +16,6 @@
         [p-title]="modalTitle">
         <form>
             <div class="po-row">
-                <po-number                
-                    class="po-md-2"
-                    p-label="Código"
-                    name="student.id"
-                    [(ngModel)]="student.id"
-                    [p-disabled]="!isNew">
-                </po-number>
                 <po-input
                     class="po-md-10"
                     p-label="Nome do Aluno"
@@ -31,14 +24,14 @@
                 </po-input>
             </div>
             <div class="po-row">
-                <po-combo
+                <po-select
                     class="po-md-12"
                     name="comboValue"
                     [(ngModel)]="comboValue"
                     (p-change)="changeCurriculum()"
                     p-label="Selecionar Currículo"
                     [p-options]="curriculums">
-                </po-combo>
+                </po-select>
             </div>
         </form>
     </po-modal>

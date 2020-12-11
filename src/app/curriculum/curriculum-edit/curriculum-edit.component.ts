@@ -43,7 +43,9 @@ export class CurriculumEditComponent implements OnInit {
     if (id) {
       this._curriculumService.getId(id).then((curriculum: Curriculum) => {
         this.curriculum = curriculum;
-        this.setSubjectsList(this.curriculum.subjects);
+        this.curriculum.subjects.forEach((res) => {
+          res.$actions = ['delete'];
+        });
       });
       this.isNew = false;
       this.pageTitle = 'Editar Currículo';
@@ -62,9 +64,13 @@ export class CurriculumEditComponent implements OnInit {
 
   private setDisciplinesOptions() {
     this.subjects = [];
+    this.subjectsList = [];
     this._subjectService.get().then(result => {
         result.forEach(element => {
           this.subjects.push({value: element.id, label: element.name});
+
+          element.$actions = ['delete'];
+          this.subjectsList.push(element);
         });
     });
   }
@@ -92,13 +98,6 @@ export class CurriculumEditComponent implements OnInit {
     this.curriculum.subjects.push(this.subjectsList.find(x => x.id == this.comboValue));
   }
 
-  private setSubjectsList(subjects: Array<Subjects>) {
-    this.subjectsList = [];
-    subjects.forEach(subject => {
-      subject.$actions = ['delete'];
-      this.subjectsList.push(subject);
-    });
-  }
 
   private back() : void {
     this._router.navigate(['curriculum']);

@@ -1,7 +1,7 @@
+import { Curriculum } from './../curriculum/curriculum.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoModalComponent, PoPageAction, PoModalAction, PoTableColumn, PoNotificationService, PoDialogService, PoComboOption } from '@po-ui/ng-components';
-import { Curriculum } from '../curriculum/curriculum.model';
 import { CurriculumService } from '../curriculum/curriculum.service';
 import { Subjects } from '../subjects/subjects.model';
 import { Students } from './students.model';
@@ -47,16 +47,17 @@ export class StudentsComponent implements OnInit {
     private _dialog: PoDialogService) { }
 
   public ngOnInit() : void {
-    this.initColumns();
     this.setCurriculumsOption();
     this.get();
+    this.initColumns();
   }
 
   private initColumns() : void {
     this.columns = [
-      { property: 'id', label: 'Código' },
-      { property: 'name', label: 'Disciplina' },
-      { property: '$curriculum', label: 'Currículo', type: 'link', action: this.detail.bind(this) },
+      { property: 'name', label: 'Nome' },
+      { property: '$curriculum', label: 'Currículo', type: 'link', action: (value, object) => {
+        this.detail(object.curriculum.id);
+      } },
       { property: '$actions', label: 'Ações', type: 'icon', icons: [
         { value: 'edit', icon: 'po-icon-edit', color: 'color-01', action: this.editModal.bind(this) },
         { value: 'delete', icon: 'po-icon-delete', color: 'color-07', action: this.delete.bind(this) },
@@ -65,64 +66,20 @@ export class StudentsComponent implements OnInit {
   }
 
   private get() : void {
-    //this._studentService.get().then(result => {
-    //    this.setData(result);
-    //});
-
-    let obj1 = new Students();
-    obj1.id = 1;
-    obj1.name = 'ALUNO 1';
-    let curriculum: Curriculum = new Curriculum();
-    curriculum.id = 1;
-    curriculum.name = 'CURRÍCULO 1';
-    obj1.curriculum = curriculum;
-    let obj2 = new Students();
-    curriculum = new Curriculum();
-    curriculum.id = 2;
-    curriculum.name = 'CURRÍCULO 2';
-    obj2.curriculum = curriculum;
-    obj2.id = 2;
-    obj2.name = 'ALUNO 2';
-    let obj3 = new Students();
-    curriculum = new Curriculum();
-    curriculum.id = 3;
-    curriculum.name = 'CURRÍCULO 3';
-    obj3.id = 3;
-    obj3.name = 'ALUNO 3';
-    obj3.curriculum = curriculum;
-
-    let array = [obj1, obj2, obj3];
-    this.setData(array);
+    this._studentService.get().then(result => {
+        this.setData(result);
+    });
   }
 
   private setCurriculumsOption() {
     this.curriculums = [];
-    //this._curriculumService.get().then(result => {
-    //    this.curriculums.push({value: result.id, label: result.name})
-    //    this.curriculumsList.push(result);
-    //});
-
-    this.curriculums.push({value: 1, label: 'CURRÍCULO 1'});
-    this.curriculums.push({value: 2, label: 'CURRÍCULO 2'});
-    this.curriculums.push({value: 3, label: 'CURRÍCULO 3'});
-
-    let curriculum = new Curriculum();
-    curriculum.id = 1;
-    curriculum.name = 'CURRÍCULO 1';
-    let curriculum2 = new Curriculum();
-    curriculum2.id = 2;
-    curriculum2.name = 'CURRÍCULO 2';
-    let curriculum3 = new Curriculum();
-    curriculum3.id = 3;
-    curriculum3.name = 'CURRÍCULO 3';
-
-    this.setCurriculumsList([curriculum, curriculum2, curriculum3]);
-
-  }
-
-  private setCurriculumsList(curriculums: Array<Curriculum>) : void {
     this.curriculumsList = [];
-    curriculums.forEach(curriculum => this.curriculumsList.push(curriculum));
+    this._curriculumService.get().then(result => {
+        result.forEach(element => {
+          this.curriculums.push({value: element.id, label: element.name});
+          this.curriculumsList.push(element);
+        });
+    });
   }
 
   private add(student: Students) : void {
@@ -158,6 +115,7 @@ export class StudentsComponent implements OnInit {
   private setData(result: Array<Students>) : void {
     this.items = new Array<Students>();
     result.forEach(item => {
+      item = Object.assign(new Students(), item);
       item.$actions = ['edit', 'delete'];
       this.items.push(item);
     });
@@ -175,7 +133,7 @@ export class StudentsComponent implements OnInit {
   private addModal() : void {
     this.modalTitle = 'Adicionar';
     this.student = new Students();
-    this.comboValue = 0;
+    this.comboValue = '';
     this.isNew = true;
     this.modal.open();
   }
@@ -193,6 +151,6 @@ export class StudentsComponent implements OnInit {
   }
 
   private detail(id: string) : void {
-    this._router.navigate(['curriculum/detail/'.concat(id.substring(0,1))]);
+    this._router.navigate(['curriculum/detail/'.concat(id)]);
   }
 }

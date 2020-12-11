@@ -3,13 +3,13 @@
     [p-actions]="pageActions">
 
     <div class="po-row">
-        <po-number
+        <po-input
             class="po-md-4"
             name="curriculum.code"
             [(ngModel)]="curriculum.code"
             [p-disabled]="!isNew"
             p-label="Código">
-        </po-number>
+        </po-input>
         <po-input
             class="po-md-8"
             name="curriculum.name"
